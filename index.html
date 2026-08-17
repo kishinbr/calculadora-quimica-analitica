@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +12,482 @@
 
 <body>
 
-    <h1>Calculadora de Cloro Ativo</h1>
+    <div class="container">
+
+        <h1>Calculadora de Cloro Ativo</h1>
+
+        <!-- ENTRADA DE DADOS DA AMOSTRA E TITULAÇÃO -->
+        <section class="card">
+
+            <h2>Dados da Amostra</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="amostra">Nome da Amostra</label>
+                    <input type="text" id="amostra" placeholder="Ex: Água">
+                </div>
+
+                <div class="form-group">
+                    <label for="massaRecipienteAmostra">Massa recipiente + amostra</label>
+                    <input type="number" id="massaRecipienteAmostra" min="0" step="0.01" placeholder="(g)">
+                </div>
+
+                <div class="form-group">
+                    <label for="volumeAmostra">Volume solução amostra</label>
+                    <input type="number" id="volumeAmostra" min="0" step="0.01" placeholder="(mL)">
+                </div>
+
+                <div class="form-group">
+                    <label for="concentracaoNa">Concentração do Na₂S₂O₃ </label>
+                    <input type="number" id="concentracaoNa" min="0" step="0.001" placeholder="(mol/L)">
+                </div>
+
+            </div>
+
+            <h2>Dados da Titulação</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="equivalencia1">Volume de equivalência 1</label>
+                    <input type="number" id="equivalencia1" min="0" step="0.01" placeholder="(mL)">
+                </div>
+
+                <div class="form-group">
+                    <label for="equivalencia2">Volume de equivalência 2</label>
+                    <input type="number" id="equivalencia2" min="0" step="0.01" placeholder="(mL)">
+                </div>
+
+                <div class="form-group">
+                    <label for="equivalencia3">Volume de equivalência 3</label>
+                    <input type="number" id="equivalencia3" min="0" step="0.01" placeholder="(mL)">
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <button type="button" id="btnCalcular" class="btn btn-primary" onclick="calcular()">Calcular</button>
+                <button type="button" id="btnLimpar" class="btn btn-secondary" onclick="limpar()">Limpar</button>
+            </div>
+
+        </section>
+
+        <!-- SEÇÃO DE RESULTADOS DETALHADOS -->
+        <div id="secaoResultados">
+
+            <!-- DADOS OBTIDOS -->
+            <section class="card">
+
+                <h2>Dados Obtidos</h2>
+
+                <div class="dados">
+
+                    <p><strong>Amostra de:</strong> <span id="outAmostra"></span></p>
+
+
+                    <p>
+                        <strong>Massa do recipiente + amostra:</strong>
+                        <span id="outMassaRecipienteAmostra"></span> g
+                    </p>
+
+                    <p>
+                        <strong>Volume da solução da amostra:</strong>
+                        <span id="outVolumeAmostra"></span> mL
+                    </p>
+
+                    <p>
+                        <strong>Vequivalência 1:</strong>
+                        <span id="outV1"></span> mL
+                    </p>
+
+                    <p>
+                        <strong>Vequivalência 2:</strong>
+                        <span id="outV2"></span> mL
+                    </p>
+
+                    <p>
+                        <strong>Vequivalência 3:</strong>
+                        <span id="outV3"></span> mL
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- DENSIDADE -->
+            <section class="card">
+
+                <h2>Densidade da amostra</h2>
+
+                <div class="calculo">
+
+                    <p id="calcDensidade1">
+                        d =     /    mL
+                    </p>
+
+                    <p id="calcDensidade2">
+                        d = / 
+                    </p>
+
+                    <p class="resultado" id="outDensidade">
+                        d = /mL
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- CLORO ATIVO -->
+            <section class="card">
+
+                <h2>Percentuais de cloro-ativo na amostra</h2>
+
+
+                <!-- PRIMEIRA DETERMINAÇÃO -->
+                <h3>Primeira determinação</h3>
+
+                <div class="calculo">
+
+                    <p>
+                        <strong>Número de mols de Na₂S₂O₃ consumidos na reação:</strong>
+                    </p>
+
+                    <p id="det1_v">
+                        Vequivalência 1 = <span id="outV1"></span> mL
+                    </p>
+
+                    <p>
+                        n₁ = C x V
+                    </p>
+
+                    <p id="det1_n_formula">
+                        n₁ = 
+                    </p>
+
+                    <p class="resultado" id="det1_n_res">
+                        n₁ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Quantidade de matéria de Cl₂ em <span class="outAliquota">10</span> mL:</strong>
+                    </p>
+
+                    <p id="det1_ncl_formula">
+                        nCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det1_ncl_res">
+                        nCl₂ =  
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Quantidade de matéria total (<span class="outBalao">100</span> mL):</strong>
+                    </p>
+
+                    <p id="det1_ncltot_formula">
+                        nCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det1_ncltot_res">
+                        nCl₂ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Massa total de Cl₂ na amostra:</strong>
+                    </p>
+
+                    <p id="det1_mcl_formula">
+                        MCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det1_mcl_res">
+                        MCl₂ = 
+                    </p>
+
+                </div>
+
+
+                <!-- SEGUNDA DETERMINAÇÃO -->
+                <h3>Segunda determinação</h3>
+
+                <div class="calculo">
+
+                    <p>
+                        <strong>Número de mols de Na₂S₂O₃ consumidos na reação:</strong>
+                    </p>
+
+                    <p id="det2_v">
+                        Vequivalência 2 = <span id="outV2"></span> mL
+                    </p>
+
+                    <p>
+                        n₂ = C x V
+                    </p>
+
+                    <p id="det2_n_formula">
+                        n₂ = 
+                    </p>
+
+                    <p class="resultado" id="det2_n_res">
+                        n₂ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Quantidade de matéria de Cl₂ em <span class="outAliquota">10</span> mL:</strong>
+                    </p>
+
+                    <p id="det2_ncl_formula">
+                        nCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det2_ncl_res">
+                        nCl₂ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Quantidade de matéria total (<span class="outBalao">100</span> mL):</strong>
+                    </p>
+
+                    <p id="det2_ncltot_formula">
+                        nCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det2_ncltot_res">
+                        nCl₂ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Massa total de Cl₂ na amostra:</strong>
+                    </p>
+
+                    <p id="det2_mcl_formula">
+                        MCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det2_mcl_res">
+                        MCl₂ = 
+                    </p>
+
+                </div>
+
+
+                <!-- TERCEIRA DETERMINAÇÃO -->
+                <h3>Terceira determinação</h3>
+
+                <div class="calculo">
+
+                    <p>
+                        <strong>Número de mols de Na₂S₂O₃ consumidos na reação:</strong>
+                    </p>
+
+                    <p id="det3_v">
+                        Vequivalência 3 = <span id="outV3"></span> mL
+                    </p>
+
+                    <p>
+                        n₃ = C x V
+                    </p>
+
+                    <p id="det3_n_formula">
+                        n₃ = 
+                    </p>
+
+                    <p class="resultado" id="det3_n_res">
+                        n₃ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Quantidade de matéria de Cl₂ em <span class="outAliquota">10</span> mL:</strong>
+                    </p>
+
+                    <p id="det3_ncl_formula">
+                        nCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det3_ncl_res">
+                        nCl₂ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Quantidade de matéria total (<span class="outBalao">100</span> mL):</strong>
+                    </p>
+
+                    <p id="det3_ncltot_formula">
+                        nCl₂ =
+                    </p>
+
+                    <p class="resultado" id="det3_ncltot_res">
+                        nCl₂ =
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Massa total de Cl₂ na amostra:</strong>
+                    </p>
+
+                    <p id="det3_mcl_formula">
+                        MCl₂ = 
+                    </p>
+
+                    <p class="resultado" id="det3_mcl_res">
+                        MCl₂ = 
+                    </p>
+
+                </div>
+
+
+                <!-- MÉDIA DAS MASSAS -->
+                <h3>Média das massas</h3>
+
+                <div class="calculo">
+
+                    <p id="calcMediaMassasFormula">
+                        M = 
+                    </p>
+
+                    <p class="resultado" id="calcMediaMassasRes">
+                        M = 
+                    </p>
+
+                </div>
+
+
+                <!-- M/M -->
+                <h3>Porcentagem em Massa/massa %(m/m)</h3>
+
+                <div class="calculo">
+
+                    <p id="mm1_formula">
+                        %(m/m)₁ = 
+                    </p>
+
+                    <p class="resultado" id="mm1_res">
+                        %(m/m)₁ = 
+                    </p>
+
+
+                    <p class="espaco" id="mm2_formula">
+                        %(m/m)₂ = 
+                    </p>
+
+                    <p class="resultado" id="mm2_res">
+                        %(m/m)₂ = 
+                    </p>
+
+
+                    <p class="espaco" id="mm3_formula">
+                        %(m/m)₃ = 
+                    </p>
+
+                    <p class="resultado" id="mm3_res">
+                        %(m/m)₃ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Média das porcentagens:</strong>
+                    </p>
+
+                    <p id="mm_med_formula">
+                        %(m/m) = 
+                    </p>
+
+                    <p class="resultado" id="mm_med_res">
+                        %(m/m) = 
+                    </p>
+
+                </div>
+
+
+                <!-- M/V -->
+                <h3>Porcentagem em Massa/volume %(m/V)</h3>
+
+                <div class="calculo">
+
+                    <p id="mv1_formula">
+                        %(m/V)₁ = 
+                    </p>
+
+                    <p class="resultado" id="mv1_res">
+                        %(m/V)₁ = 
+                    </p>
+
+
+                    <p class="espaco" id="mv2_formula">
+                        %(m/V)₂ = 
+                    </p>
+
+                    <p class="resultado" id="mv2_res">
+                        %(m/V)₂ = 
+                    </p>
+
+
+                    <p class="espaco" id="mv3_formula">
+                        %(m/V)₃ = 
+                    </p>
+
+                    <p class="resultado" id="mv3_res">
+                        %(m/V)₃ = 
+                    </p>
+
+
+                    <p class="espaco">
+                        <strong>Média das porcentagens:</strong>
+                    </p>
+
+                    <p id="mv_med_formula">
+                        %(m/V) = 
+                    </p>
+
+                    <p class="resultado" id="mv_med_res">
+                        %(m/V) = 
+                    </p>
+
+                </div>
+
+
+                <!-- RESULTADO FINAL -->
+                <div class="final">
+
+                    <h3>Resultados finais</h3>
+
+                    <p>
+                        <strong>Média das massas:</strong>
+                        <span id="finalMediaMassas"></span>
+                    </p>
+
+                    <p>
+                        <strong>% (m/m):</strong>
+                        <span id="finalMM"></span>
+                    </p>
+
+                    <p>
+                        <strong>% (m/V):</strong>
+                        <span id="finalMV"></span>
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
 
     <script src="script.js"></script>
+
 </body>
+
 </html>
